@@ -1,6 +1,40 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
+// const navigation = [
+//   { title: 'Home', url: '/home' },
+//   {
+//     title: 'Products',
+//     children: [
+//       { title: 'Men', url: '/products/men' },
+//       { title: 'Women', url: '/products/women' },
+//       {
+//         title: 'Electronics',
+//         children: [
+//           { title: 'Phones', url: '/products/electronics/phones' },
+//           { title: 'Laptops', url: '/products/electronics/laptops' },
+//         ],
+//       },
+//     ],
+//   },
+//   {
+//     title: 'Services',
+//     children: [
+//       {
+//         title: 'Same Day Delivery',
+//         children: [
+//           {
+//             title: 'Customized Services',
+//             url: '/services/customized-services',
+//           },
+//         ],
+//       },
+//       { title: 'Customized Services', url: '/services/customized-services' },
+//     ],
+//   },
+//   { title: 'About', url: '/about' },
+//   { title: 'Contact', url: '/contact' },
+// ];
 const navigation = [
   { title: 'Home', url: '/home' },
   {
@@ -12,7 +46,45 @@ const navigation = [
         title: 'Electronics',
         children: [
           { title: 'Phones', url: '/products/electronics/phones' },
-          { title: 'Laptops', url: '/products/electronics/laptops' },
+          {
+            title: 'Laptops',
+            children: [
+              {
+                title: 'Gaming Laptops',
+                url: '/products/electronics/laptops/gaming',
+              },
+              {
+                title: 'Business Laptops',
+                url: '/products/electronics/laptops/business',
+              },
+              {
+                title: 'Ultrabooks',
+                children: [
+                  {
+                    title: 'Lightweight',
+                    url: '/products/electronics/laptops/ultrabooks/lightweight',
+                  },
+                  {
+                    title: 'Performance',
+                    url: '/products/electronics/laptops/ultrabooks/performance',
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            title: 'Accessories',
+            children: [
+              {
+                title: 'Chargers',
+                url: '/products/electronics/accessories/chargers',
+              },
+              {
+                title: 'Headphones',
+                url: '/products/electronics/accessories/headphones',
+              },
+            ],
+          },
         ],
       },
     ],
@@ -25,7 +97,25 @@ const navigation = [
         children: [
           {
             title: 'Customized Services',
-            url: '/services/customized-services',
+            children: [
+              {
+                title: 'Personalized Gifts',
+                url: '/services/customized-services/personalized-gifts',
+              },
+              {
+                title: 'Business Packages',
+                children: [
+                  {
+                    title: 'Corporate Events',
+                    url: '/services/customized-services/business-packages/corporate-events',
+                  },
+                  {
+                    title: 'Workshops',
+                    url: '/services/customized-services/business-packages/workshops',
+                  },
+                ],
+              },
+            ],
           },
         ],
       },
@@ -35,6 +125,7 @@ const navigation = [
   { title: 'About', url: '/about' },
   { title: 'Contact', url: '/contact' },
 ];
+
 
 export default function App() {
   const [currentList, setCurrentList] = useState(navigation);
