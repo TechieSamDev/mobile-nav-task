@@ -22,7 +22,18 @@ const navigation = [
     children: [
       {
         title: 'Same Day Delivery',
-        children: [{ title: 'Day 1', url: '/services/same-delivery-day/day1' }],
+        children: [
+          {
+            title: 'Day 1',
+            children: [
+              {
+                title: 'Morning',
+                url: '/services/same-day-delivery/day1/morning',
+              },
+              { title: 'Evening' },
+            ],
+          },
+        ],
       },
       { title: 'Customized Services', url: '/services/customized-services' },
     ],
@@ -43,16 +54,21 @@ export default function App() {
       navigate(item.url);
     }
     if (item.children) {
-      setHistory([...history, { list: currentList, parent: currentParent }]);
+      setHistory([
+        ...history,
+        { parent: currentParent, children: currentList },
+      ]);
       setCurrentList(item.children);
-      setCurrentParent(item.title);
+      setCurrentParent((prevTitle) =>
+        prevTitle ? `${prevTitle} > ${item.title}` : item.title
+      );
     }
   };
 
   const goBack = () => {
     if (history.length > 0) {
       const prevState = history.pop();
-      setCurrentList(prevState.list);
+      setCurrentList(prevState.children);
       setCurrentParent(prevState.parent);
       setHistory([...history]);
     }
@@ -76,23 +92,3 @@ export default function App() {
     </div>
   );
 }
-
-// Task Breakdown
-
-// Create a mobile navigation UI that displays a list of titles.
-
-// // Navigation logic:
-// - When a title with a URL is clicked, navigate to the specified URL.
-// - When a title with children is clicked, replace the current list with the list of child titles.
-
-// // Child navigation logic:
-// - If a child title with a URL is clicked, navigate to that URL.
-// - If a child title with its own children is clicked, replace the current list with that child’s titles.
-
-// // Parent navigation display:
-// - When a list of child titles is shown, display the parent title at the top along with a back button.
-// - Back button behavior: Clicking the back button should return the user to the previous list (parent titles).
-
-// // Dynamic structure handling:
-// - The structure of titles can be modified at any time with new children added to titles.
-// - The code must handle unlimited nesting of children and grandchildren dynamically, ensuring the UI correctly reflects any changes to the data at all levels of the hierarchy.
