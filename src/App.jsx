@@ -20,21 +20,7 @@ const navigation = [
   {
     title: 'Services',
     children: [
-      {
-        title: 'Same Day Delivery',
-        children: [
-          {
-            title: 'Day 1',
-            children: [
-              {
-                title: 'Morning',
-                url: '/services/same-day-delivery/day1/morning',
-              },
-              { title: 'Evening' },
-            ],
-          },
-        ],
-      },
+      { title: 'Same Day Delivery', url: '/services/same-day-delivery' },
       { title: 'Customized Services', url: '/services/customized-services' },
     ],
   },
@@ -66,12 +52,11 @@ export default function App() {
   };
 
   const goBack = () => {
-    if (history.length > 0) {
-      const prevState = history.pop();
-      setCurrentList(prevState.children);
-      setCurrentParent(prevState.parent);
-      setHistory([...history]);
-    }
+    if (history.length <= 0) return;
+
+    const prevState = history.pop();
+    setCurrentList(prevState.children);
+    setCurrentParent(prevState.parent);
   };
 
   return (
