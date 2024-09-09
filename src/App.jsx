@@ -38,8 +38,7 @@ export default function App() {
   const handleClick = (item) => {
     if (item.url) {
       navigate(item.url);
-    }
-    if (item.children) {
+    } else if (item.children) {
       setHistory([
         ...history,
         { parent: currentParent, children: currentList },
@@ -54,9 +53,9 @@ export default function App() {
   const goBack = () => {
     if (history.length <= 0) return;
 
-    const prevState = history.pop();
-    setCurrentList(prevState.children);
-    setCurrentParent(prevState.parent);
+    const prevList = history.pop();
+    setCurrentList(prevList.children);
+    setCurrentParent(prevList.parent);
   };
 
   return (
