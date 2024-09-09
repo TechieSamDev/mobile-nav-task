@@ -20,7 +20,15 @@ const navigation = [
   {
     title: 'Services',
     children: [
-      { title: 'Same Day Delivery', url: '/services/same-day-delivery' },
+      {
+        title: 'Same Day Delivery',
+        children: [
+          {
+            title: 'Customized Services',
+            url: '/services/customized-services',
+          },
+        ],
+      },
       { title: 'Customized Services', url: '/services/customized-services' },
     ],
   },
@@ -31,7 +39,6 @@ const navigation = [
 export default function App() {
   const [currentList, setCurrentList] = useState(navigation);
   const [history, setHistory] = useState([]);
-  const [currentParent, setCurrentParent] = useState('');
 
   const navigate = useNavigate();
 
@@ -41,12 +48,12 @@ export default function App() {
     } else if (item.children) {
       setHistory([
         ...history,
-        { parent: currentParent, children: currentList },
+        {
+          parent: item.title,
+          children: currentList,
+        },
       ]);
       setCurrentList(item.children);
-      setCurrentParent((prevTitle) =>
-        prevTitle ? `${prevTitle} > ${item.title}` : item.title
-      );
     }
   };
 
@@ -55,7 +62,6 @@ export default function App() {
 
     const prevList = history.pop();
     setCurrentList(prevList.children);
-    setCurrentParent(prevList.parent);
   };
 
   return (
@@ -63,7 +69,7 @@ export default function App() {
       {history.length > 0 && (
         <>
           <button onClick={goBack}>Back</button>
-          <h3>{currentParent}</h3>
+          <h3>{history.map((item) => item.parent).join(' > ')}</h3>
         </>
       )}
       <ul>
